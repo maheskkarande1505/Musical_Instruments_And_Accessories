@@ -17,4 +17,4 @@ app.use(session({
 app.use("/admin",admin_routes);
 app.use("/",user_routes);
 
-app.listen(1000);
+app.listen(1000);   
