@@ -26,4 +26,8 @@ router.get("/cart",function(req,res){
     res.render("user/Cart.ejs");
 });
 
+router.get("/contact",function(req,res){
+    res.render("user/Contact.ejs");
+});
+
 module.exports = router;
