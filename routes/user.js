@@ -30,4 +30,8 @@ router.get("/contact",function(req,res){
     res.render("user/Contact.ejs");
 });
 
+router.get("/product_details", function(req, res){
+    res.render("user/Product_Details.ejs")
+})
+
 module.exports = router;
