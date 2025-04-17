@@ -5,6 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 </head>
+<style>
+
+    .testimonial-section {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+ 
+
+    .carousel-wrapper {
+        position: relative;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .testimonial-card {
+        background: #fff;
+        color: #000;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        min-width: 280px;
+        margin: 10px;
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .testimonial-card img {
+        width: 250px;
+        height: 150px;
+       
+    }
+
+
+    .scroll-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 15px;
+        padding: 20px 0;
+    }
+
+    .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .arrow-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: 0.3s;
+    }
+
+    .arrow-btn:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .prev-btn {
+        left: -40px;
+    }
+
+    .next-btn {
+        right: -40px;
+    }
+
+</style>
 <body>
     <main>
         <header>
@@ -165,11 +235,65 @@
             </div>
           </section>
 
-
+          <section class="testimonial-section">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>Brands</h3>
+                </div>
+            </div>
+       
+            <div class="carousel-wrapper">
+                <button class="arrow-btn prev-btn" onclick="scrollLeft()">❮</button>
+    
+                <div class="scroll-container" id="scroll-container">
+                    <div class="testimonial-card">
+                        <img src="https://image1.jdomni.in/banner/12092023/77/EB/DC/84991223EF36E42FDE67B44FB9_1694520326638.png?output-format=webp" alt="User">
+                    </div>
+    
+                
+                    <div class="testimonial-card">
+                        <img src="https://image3.jdomni.in/banner/12092023/9A/23/3C/1C7BEC8669C4FE5C58C34777F4_1694520239452.png?output-format=webp" alt="User">
+                    </div>
+    
+                    <div class="testimonial-card">
+                        <img src="https://image2.jdomni.in/banner/12092023/7B/F9/D1/B9FF876C5063311A1F6624FE9B_1694520453322.png?output-format=webp" alt="User">
+                    </div>
+    
+                    <div class="testimonial-card">
+                        <img src="https://image2.jdomni.in/banner/12092023/11/42/41/F032AEE01DE5497999FBE8A82E_1694520767229.png?output-format=webp" alt="User">
+                    </div>
+    
+                </div>
+    
+                <button class="arrow-btn next-btn" onclick="scrollRight()">❯</button>
+            </div>
+        </section>
 
         <footer>
             <%-include("Footer.ejs")%>
         </footer>
     </main>
+
+    <!-- Brands  -->
+    <script>
+        let scrollContainer = document.getElementById("scroll-container");
+    
+        function scrollLeft() {
+            scrollContainer.scrollBy({ left: -300, behavior: "smooth" });
+        }
+    
+        function scrollRight() {
+            scrollContainer.scrollBy({ left: 300, behavior: "smooth" });
+        }
+    
+        // Auto-scroll every 3 seconds
+        setInterval(() => {
+            if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth) {
+                scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
+            } else {
+                scrollContainer.scrollBy({ left: 300, behavior: "smooth" });
+            }
+        }, 3000);
+    </script>
 </body>
 </html>
