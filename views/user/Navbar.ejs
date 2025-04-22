@@ -54,7 +54,7 @@
             </ul>
           <div class="d-flex align-items-center gap-4">
         
-           
+            <% if(is_login) { %>
             
 
 
@@ -117,11 +117,11 @@
               <i class="ri-shopping-bag-2-line ri-lg">My Cart</i>
             </a>
 
-           
+            <% } else { %>
             <a href="#" class="link-dark">
               <i class="ri-account-circle-line ri-lg" data-bs-toggle="modal" data-bs-target="#login">Account</i>
             </a>
-           
+            <% } %>
            
            
           </div>
