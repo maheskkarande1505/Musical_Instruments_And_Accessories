@@ -89,4 +89,78 @@ router.get("/dashboard",function(req, res){
     res.render("admin/Home.ejs")
 });
 
+router.get("/slider",async function(req, res){
+    var sql =  `SELECT * FROM slider`;
+    var data = await exe(sql);
+    var obj = {"slider_info":data}
+    res.render("admin/Slider.ejs", obj);
+});
+
+router.post("/add_slider", async function(req, res){
+    var slider_image = "";
+
+    if(req.files)
+    {
+        if(req.files.slider_image)
+        {
+            slider_image = new Date().getTime()+req.files.slider_image.name;
+            req.files.slider_image.mv("public/uploads/"+slider_image);
+        }
+
+    }
+
+    var d = req.body;
+    var sql = `INSERT INTO slider(slider_title,slider_image,slider_desc) VALUES (?,?,?)`;
+    var data = await exe(sql, [d.slider_title,slider_image,d.slider_desc]);
+    //res.send(data);
+    res.redirect("/admin/slider");
+});
+
+router.get("/edit_slider/:id", async function(req, res){
+    var id = req.params.id;
+    var sql = `SELECT * FROM slider WHERE slider_id = '${id}' `;
+    var data = await exe(sql);
+    var obj = {"slider_info":data[0]}
+    res.render("admin/Slider_Edit.ejs", obj);
+});
+
+router.post("/update_slider/", async function(req, res){
+    var id = req.params.id;
+    var slider_image = "";
+    var d = req.body;
+
+    if(req.files)
+    {
+        if(req.files.slider_image)
+        {
+            var slider_image = new Date().getTime()+req.files.slider_image.name;
+            req.files.slider_image.mv("public/uploads/"+slider_image);
+            var sqlImage = `UPDATE slider SET slider_image ='${slider_image}'
+                                            WHERE slider_id = '${d.slider_id}' `;
+            var dataImage = await exe(sqlImage);
+
+        }
+    }
+
+    var sql = `UPDATE slider SET
+                    slider_title = '${d.slider_title}',
+                    slider_desc = '${d.slider_desc}'
+                WHERE slider_id = '${d.slider_id}'`;
+    var data = await exe(sql);
+   // res.send(data);
+   res.redirect("/admin/slider")
+});
+
+router.get("/delete_slider/:id", async function(req, res){
+    var id = req.params.id;
+    var sql = `DELETE FROM slider WHERE slider_id = '${id}'`;
+    var data = await exe(sql);
+   // res.send(data);
+   res.redirect("/admin/slider")
+})
+
+router.get("/about_us",function(req, res){
+    res.render("admin/About.ejs");
+})
+
 module.exports = router;

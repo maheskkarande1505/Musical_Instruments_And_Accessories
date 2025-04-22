@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+</head>
+<body>
+     <main>
+        <%-include("Navbar.ejs")%>
+        
+
+        <div class="container">
+            <form action="/admin/add_slider" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Add Slider Form</h2>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label>Enter Title</label>
+                        <input type="text" class="form-control" name="slider_title"/>
+                    </div>
+                    <div class="col-md-5 mt-3">
+                        <label>Select Image</label>
+                        <input type="file" class="form-control" name="slider_image"/>
+                    </div>
+                    <div class="col-md-1 mt-3">
+                        
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <label>Enter Description</label>
+                        <textarea class="form-control" name="slider_desc"></textarea>
+                    </div>
+
+                    <div class="col-md-12 mt-3 text-center">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Slider List</h2>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Slider Title</th>
+                            <th>Slider Image</th>
+                            <th>Slider Description</th>
+                            <th>Action</th>
+                        </tr>
+
+                        <% slider_info.map((row, i)=>{ %>
+                            <tr>
+                                <td><%-i+1%></td>
+                                <td><%-row.slider_title%></td>
+                                <td><img src="/uploads/<%-row.slider_image%>" width="100px"/> </td>
+                                <td><%-row.slider_desc%></td>
+                                <td style="white-space: nowrap;">
+                                    <a href="/admin/edit_slider/<%- row.slider_id %>">
+                                        <button class="btn btn-sm btn-success"> <i class="fa fa-pencil"></i> </button>
+                                    </a>
+                                    <a href="/admin/delete_slider/<%- row.slider_id %>" onclick="return confirm('Are You Sure....?')">
+                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button>
+                                    </a>
+                                </td>  
+                            </tr>
+                        <% }) %>
+                       
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <%-include("Footer.ejs")%>
+     </main>
+</body>
+</html>
