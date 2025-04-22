@@ -32,6 +32,18 @@ router.get("/contact",function(req,res){
 
 router.get("/product_details", function(req, res){
     res.render("user/Product_Details.ejs")
+});
+
+router.get("/checkout",function(req, res){
+    res.render("user/CheckOut.ejs");
+});
+
+router.get("/do_payment",function(req, res){
+    res.render("user/do_payment.ejs")
+});
+
+router.post("/confirm_order",function(req, res){
+    res.redirect("/do_payment")
 })
 
 module.exports = router;
