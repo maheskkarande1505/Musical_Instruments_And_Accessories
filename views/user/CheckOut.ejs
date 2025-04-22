@@ -1,0 +1,84 @@
+<%-include("navbar.ejs")%>
+<form action="/confirm_order" method="post">
+    <div class="py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-8 col-12 pe-lg-5 bg-light p-3">
+                    <div class="mb-4">
+                        <h5 class="fw-bold pb-2">Enter your name and address:</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" name="full_name" class="form-control" placeholder="Enter Your Full Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Mobile No.</label>
+                                <input type="number" name="mobile" class="form-control" placeholder="Enter Your Mobile Number" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Street/Landmark</label>
+                                <input type="text" name="street_landmark" class="form-control" placeholder="Enter Your Street/Landmark" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">City</label>
+                                <input type="text" name="city" class="form-control" placeholder="Enter Your City">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">District</label>
+                                <input type="text" name="district" class="form-control" placeholder="Enter Your District">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">State</label>
+                                <input type="text" name="state" class="form-control" placeholder="Enter Your State">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Country</label>
+                                <input type="text" name="country" class="form-control" placeholder="Enter Your Country" readonly value="India">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Pin Code</label>
+                                <input type="text" name="pin_code" class="form-control" placeholder="Enter Your Pin Code" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Payment Mode</label>
+                                <select name="payment_mode" required class="form-select">
+                                    <option selected disabled value="">Select Payment Mode</option>
+                                    <option value="online">Online : Cards / UPI / Net Banking</option>
+                                    <option value="cod">Cash On Delivery</option>
+                                    
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="bg-light p-5">
+                    <h4 class="fw-bold pb-3">Summary <small class="fw-light">5 Items</small> </h4>
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center justify-content-between text-secondary-emphasis mb-1">
+                        <p class="mb-0">Order value</p>
+                        <p class="mb-0">₹ 5555</p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between text-secondary-emphasis mb-2">
+                        <p class="mb-0">Delivery</p>
+                        <p class="mb-0">FREE</p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between border-top pt-4 mt-4">
+                        <h4 class="fw-bold mb-0">Total</h4>
+                        <h4 class="fw-bold mb-0">₹ 5555</h4>
+                        </div>
+                    </div>
+                    <button class="btn btn-dark fw-bold fs-7 rounded-0 shadow-none border-0 px-5 py-3 text-uppercase w-100">
+                        <span class="px-3"> Place Order </span>
+                    </button>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<%-include("footer.ejs")%>
+
