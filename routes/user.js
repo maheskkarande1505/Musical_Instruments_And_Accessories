@@ -32,8 +32,10 @@ function is_login(req)
         return false;
 }
 
-router.get("/",function(req,res){
-    var obj = {"is_login":is_login(req)};
+router.get("/",async function(req,res){
+    var sql = 'SELECT * FROM slider';
+    var slider_info = await exe(sql);
+    var obj = {"is_login":is_login(req), "slider_info":slider_info};
     res.render("user/Home.ejs", obj);
 });
 
