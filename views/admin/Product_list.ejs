@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products List</title>
+</head>
+<body>
+     <main>
+        <%-include("Navbar.ejs")%>
+        
+
+       
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Prducts List</h2>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Product Name</th>
+                            <th>Product Price</th>
+                            <th>Product Purchase Price</th>
+                            <th>Product Details</th>
+                            <th>Product Image-1</th>
+
+                            <th>Action</th>
+                        </tr>
+
+                        <% product_info.map((row, i)=>{ %>
+                            <tr>
+                                <td><%-i+1%></td>
+                                <td><%-row.product_name%></td>
+                                <td><%-row.product_price%></td>
+                                <td><%-row.product_purchase_price%></td>
+                                <td><%-row.product_details%></td>
+                              
+                                <td>
+                                    <button class="btn btn-sm btn-primary" onclick="open_image('<%-row.product_image1%>')">Open</button>
+                                </td>
+
+                                <td style="white-space: nowrap;">
+                                    <a href="/admin/edit_product/<%- row.product_id %>">
+                                        <button class="btn btn-sm btn-success"> <i class="fa fa-pencil"></i> </button>
+                                    </a>
+                                    <a href="/admin/delete_product/<%- row.product_id %>" onclick="return confirm('Are You Sure....?')">
+                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button>
+                                    </a>
+                                </td>  
+                            </tr>
+                        <% }) %>
+                       
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function open_image(img_path)
+            {
+              window.open('/uploads/'+img_path, "", "width=500px, height=500");
+            }  
+      </script>
+
+        <%-include("Footer.ejs")%>
+     </main>
+</body>
+</html>

@@ -161,6 +161,60 @@ router.get("/delete_slider/:id", async function(req, res){
 
 router.get("/about_us",function(req, res){
     res.render("admin/About.ejs");
+});
+
+router.get("/products", function(req, res){
+    res.render("admin/Products.ejs")
+})
+
+router.post("/add_products",async function(req, res){
+
+    var product_image1 = "";
+    var product_image2 = "";
+    var product_image3 = "";
+    var product_image4 = "";
+
+
+    if(req.files)
+    {
+        if(req.files.product_image1)
+        {
+            product_image1 = new Date().getTime()+req.files.product_image1.name;
+            req.files.product_image1.mv("public/uploads/"+product_image1);
+        }
+
+        if(req.files.product_image2)
+        {
+            product_image2 = new Date().getTime()+req.files.product_image2.name;
+            req.files.product_image2.mv("public/uploads/"+product_image2);
+        }
+
+        if(req.files.product_image3)
+        {
+            product_image3 = new Date().getTime()+req.files.product_image3.name;
+            req.files.product_image3.mv("public/uploads/"+product_image3);
+        }
+
+        if(req.files.product_image4)
+        {
+            product_image4 = new Date().getTime()+req.files.product_image4.name;
+            req.files.product_image4.mv("public/uploads/"+product_image4);
+        }
+
+    }
+
+    var d = req.body;
+    var sql = `INSERT INTO products(product_name,product_price,product_purchase_price,product_details,product_image1,product_image2,product_image3,product_image4) VALUES (?,?,?,?,?,?,?,?)`;
+    var data = await exe(sql, [d.product_name,d.product_price,d.product_purchase_price,d.product_details,product_image1,product_image2,product_image3,product_image4])
+   // res.send(data);
+    res.redirect("/admin/products")
+} );
+
+router.get("/product_list",async function(req, res){
+    var sql =  `SELECT * FROM products`
+    var data = await exe(sql);
+    var obj = {"product_info":data}
+    res.render("admin/Product_list.ejs",obj)
 })
 
 module.exports = router;
