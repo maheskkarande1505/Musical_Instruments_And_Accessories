@@ -234,4 +234,63 @@ router.get("/edit_product/:id", async function (req, res){
     res.render("admin/Product_edit.ejs", obj);
 });
 
+router.post("/update_product", async function(req, res){
+    var id = req.params.id;
+    var product_image1 = "";
+    var product_image2 = "";
+    var product_image3 = "";
+    var product_image4 = "";
+
+    var d = req.body;
+
+    if(req.files)
+    {
+        if(req.files.product_image1)
+        {
+            var product_image1 = new Date().getTime()+req.files.product_image1.name;
+            req.files.product_image1.mv("public/uploads/"+product_image1);
+            var sqlImage1 = `UPDATE products SET product_image1 ='${product_image1}'
+                                            WHERE product_id = '${d.product_id}' `;
+            var dataImage1 = await exe(sqlImage1);
+
+        }
+        if(req.files.product_image2)
+        {
+            var product_image2 = new Date().getTime()+req.files.product_image2.name;
+            req.files.product_image2.mv("public/uploads/"+product_image2);
+            var sqlImage2 = `UPDATE products SET product_image2 ='${product_image2}'
+                                            WHERE product_id = '${d.product_id}' `;
+            var dataImage2 = await exe(sqlImage2);
+
+        }
+        if(req.files.product_image3)
+        {
+            var product_image3 = new Date().getTime()+req.files.product_image3.name;
+            req.files.product_image3.mv("public/uploads/"+product_image3);
+            var sqlImage3 = `UPDATE products SET product_image3 ='${product_image3}'
+                                            WHERE product_id = '${d.product_id}' `;
+            var dataImage3 = await exe(sqlImage3);
+
+        }
+        if(req.files.product_image4)
+        {
+            var product_image4 = new Date().getTime()+req.files.product_image4.name;
+            req.files.product_image4.mv("public/uploads/"+product_image4);
+            var sqlImage4 = `UPDATE products SET product_image4 ='${product_image4}'
+                                            WHERE product_id = '${d.product_id}' `;
+            var dataImage4 = await exe(sqlImage4);
+
+        }
+    }
+
+    var sql = `UPDATE products SET
+                    product_name = '${d.product_name}',
+                    product_price = '${d.product_price}',
+                    product_purchase_price = '${d.product_purchase_price}',
+                    product_details = '${d.product_details}'
+                WHERE product_id = '${d.product_id}'`;
+    var data = await exe(sql);
+   // res.send(data);
+   res.redirect("/admin/product_list")
+});
 module.exports = router;
