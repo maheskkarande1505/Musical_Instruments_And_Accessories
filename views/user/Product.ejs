@@ -20,78 +20,21 @@
                 </div>
                 
                 <div class="row mt-3 mb-5">
-                  
-                    <div class="col-md-3 mt-4">
-                        <a href="/product_details">
-                            <div class="card border-0">
-                                <img src="https://image1.jdomni.in/product/01/F4/74/Acoustic-Drums_1496414200850.jpg"/>
-                            </div>
-                            <div class="card-body mt-2 ms-5">
-                                <h6 class="card-title text-truncate mb-1">Acoustic Drums</h6>
-                                <h6 class="mb-0">₹ 2250</h6>
-                            </div>
-                        </a>
-                    </div>
 
-                    <div class="col-md-3 mt-4">
-                        <a href="/product_details">
-                            <div class="card border-0">
-                                <img src="https://image1.jdomni.in/product/2D/78/94/Flutes_1496413960710.jpg"/>
-                            </div>
-                            <div class="card-body mt-2 ms-5">
-                                <h6 class="card-title text-truncate mb-1">Wooden Basuri</h6>
-                                <h6 class="mb-0">₹ 1250</h6>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-md-3 mt-4">
-                        <a href="/product_details">
-                            <div class="card border-0">
-                                <img src="https://image1.jdomni.in/product/DC/34/02/Tubas_1496413846955.jpg"/>
-                            </div>
-                            <div class="card-body mt-2 ms-5">
-                                <h6 class="card-title text-truncate mb-1">Tubas Musicla instrument</h6>
-                                <h6 class="mb-0">₹ 250</h6>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-md-3 mt-4">
-                        <a href="/product_details">
-                            <div class="card border-0">
-                                <img src="https://image1.jdomni.in/product/92/3A/E2/Electric-Guitars_1496413617510.jpg" style="height: 200px;"/>
-                            </div>
-                            <div class="card-body mt-2 ms-5">
-                                <h6 class="card-title text-truncate mb-1">Electric Guiters</h6>
-                                <h6 class="mb-0">₹ 250</h6>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-md-3 mt-4">
-                        <a href="/product_details">
-                            <div class="card border-0">
-                                <img src="https://image1.jdomni.in/product/89/D6/8F/Acoustic-Guitars_1496413499387.jpg" style="height: 200px;"/>
-                            </div>
-                            <div class="card-body mt-2 ms-5">
-                                <h6 class="card-title text-truncate mb-1">Acoustic Guiters</h6>
-                                <h6 class="mb-0">₹ 250</h6>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-md-3 mt-4">
-                        <a href="/product_details">
-                            <div class="card border-0">
-                                <img src="https://image1.jdomni.in/product/5A/EA/E4/Portable-Piano_1496413212148.jpg" style="height: 200px;"/>
-                            </div>
-                            <div class="card-body mt-2 ms-5">
-                                <h6 class="card-title text-truncate mb-1">Portable piano</h6>
-                                <h6 class="mb-0">₹ 250</h6>
-                            </div>
-                        </a>
-                    </div>
+                    <% product_info.map((row, i)=>{ %>
+                        <div class="col-md-3 mt-4">
+                            <a href="/product_details/<%-row.product_id%>">
+                                <div class="card border-0">
+                                    <img src="/uploads/<%-row.product_image1%>" style="height: 200px;"/>
+                                </div>
+                                <div class="card-body mt-2 ms-5">
+                                    <h6 class="card-title text-truncate mb-1"><%-row.product_name%></h6>
+                                    <h6 class="mb-0">₹ <%-row.product_price%></h6>
+                                    <h6><%-row.product_id%></h6>
+                                </div>
+                            </a>
+                        </div>
+                    <% }) %>
 
                 </div>
             </div>

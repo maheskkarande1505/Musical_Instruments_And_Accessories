@@ -44,8 +44,10 @@ router.get("/about",function(req,res){
     res.render("user/About.ejs",obj);
 });
 
-router.get("/product",function(req,res){
-    var obj = {"is_login":is_login(req)};
+router.get("/product",async function(req,res){
+    var sql = `SELECT * FROM products`;
+    var data = await exe(sql);
+    var obj = {"is_login":is_login(req), "product_info":data};
     res.render("user/Product.ejs",obj);
 });
 
@@ -69,8 +71,11 @@ router.get("/contact",function(req,res){
     res.render("user/Contact.ejs",obj);
 });
 
-router.get("/product_details", function(req, res){
-    var obj = {"is_login":is_login(req)};
+router.get("/product_details/:id", async function(req, res){
+    var id = req.params.id;
+    var sql = `SELECT * FROM products WHERE product_id = '${id}'`;
+    var data = await exe(sql);
+    var obj = {"is_login":is_login(req), "product_info":data[0]};
     res.render("user/Product_Details.ejs",obj)
 });
 
@@ -117,5 +122,7 @@ router.post("/proceed_login", async function(req, res){
     else
     res.send("login Failed");
 });
+
+
 
 module.exports = router;

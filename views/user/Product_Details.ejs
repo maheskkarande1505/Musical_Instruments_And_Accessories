@@ -22,25 +22,28 @@
                         <div class="swiper product-view-slider">
                             <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img src="https://image1.jdomni.in/product/01/F4/74/Acoustic-Drums_1496414200850.jpg" alt="view-1" class="img-fluid" style="width: 70%; position: relative; left: 15%;" >
+                                <img src="/uploads/<%-product_info.product_image1%>" alt="view-1" class="img-fluid" style="width: 70%; position: relative; left: 15%;" >
                             </div>
 
-                           
+                            <% if(product_info.product_image2){ %>
                                 <div class="swiper-slide">
-                                    <img src="https://image3.jdomni.in/banner/17032022/E6/6D/CE/97A0D6A336AF317A045419F490_1647517226170.png?output-format=webp" alt="view-2" class="img-fluid"style="width: 70%; position: relative; left: 15%;">
+                                    <img src="/uploads/<%-product_info.product_image2%>" alt="view-2" class="img-fluid"style="width: 70%; position: relative; left: 15%;">
                                 </div>
-                           
-
-                           
+                            <% } %>
+        
+                            <% if(product_info.product_image3){ %>
                                 <div class="swiper-slide">
-                                    <img src="https://image1.jdomni.in/product/01/F4/74/Acoustic-Drums_1496414200850.jpg" alt="view-3" class="img-fluid"style="width: 70%; position: relative; left: 15%;">
+                                    <img src="/uploads/<%-product_info.product_image3%>" alt="view-3" class="img-fluid"style="width: 70%; position: relative; left: 15%;">
                                 </div>
-                           
-
-                           
+                            <% } %>
+        
+                            <% if(product_info.product_image4){ %>
                                 <div class="swiper-slide">
-                                    <img src="https://image3.jdomni.in/banner/17032022/E6/6D/CE/97A0D6A336AF317A045419F490_1647517226170.png?output-format=webp" alt="view-4" class="img-fluid"style="width: 70%; position: relative; left: 15%;">
+                                    <img src="/uploads/<%-product_info.product_image4%>" alt="view-4" class="img-fluid"style="width: 70%; position: relative; left: 15%;">
                                 </div>
+                            <% } %>
+                           
+                               
                            
                             </div>  
                         </div>
@@ -48,8 +51,8 @@
                         <div class="col-lg-6 col-12">
                         <div class="sticky-sidebar p-5">
                             <div class="mb-4">
-                            <h1 class="fw-bold">Acoustic Drums</h1>
-                            <h2 class="fw-bold mb-0">2250<span class="text-secondary-emphasis fw-normal fs-6">(MRP incl. of all taxes)</span>
+                            <h1 class="fw-bold"><%-product_info.product_name%></h1>
+                            <h2 class="fw-bold mb-0"><%-product_info.product_price%><span class="text-secondary-emphasis fw-normal fs-6">(MRP incl. of all taxes)</span>
                             </h2>
                             </div>
                             <div class="d-flex align-items-center gap-4 mb-5 product-detail-select-size">
@@ -80,9 +83,7 @@
                                 </div>
                             
                             <div class="mb-4">
-                            <p class="text-secondary-emphasis">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Error minima adipisci dignissimos eos eaque non rerum odit ullam explicabo voluptatibus tenetur,
-                                 fugiat voluptatem impedit quia voluptate, sunt, temporibus corrupti et.</p>
+                            <p class="text-secondary-emphasis"><%-product_info.product_details%></p>
                             </div>
                         </div>
                         </div>
