@@ -215,6 +215,23 @@ router.get("/product_list",async function(req, res){
     var data = await exe(sql);
     var obj = {"product_info":data}
     res.render("admin/Product_list.ejs",obj)
-})
+});
+
+router.get("/delete_product/:id", async function(req, res){
+    var id = req.params.id
+    var sql = `DELETE FROM products WHERE product_id = '${id}'`;
+    var data = await exe(sql);
+    //res.send(data);
+    res.redirect("/admin/product_list")
+});
+
+router.get("/edit_product/:id", async function (req, res){
+    var id = req.params.id;
+    var sql = `SELECT * FROM products WHERE product_id = '${id}'`;
+    var data = await exe(sql);
+    var obj = {"products":data[0]};
+   // res.send(data)
+    res.render("admin/Product_edit.ejs", obj);
+});
 
 module.exports = router;
