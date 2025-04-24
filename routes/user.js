@@ -162,9 +162,42 @@ router.get("/checkout", verify_login, async function(req, res){
     res.render("user/CheckOut.ejs",obj);
 });
 
-router.get("/do_payment",verify_login, function(req, res){
-    var obj = {"is_login":is_login(req)};
+router.get("/do_payment/:order_id",verify_login, async function(req, res){
+    var order_id = req.params.order_id;
+    var sql = `SELECT * FROM order_info WHERE order_id = '${order_id}'`;
+    var order_info = await exe(sql);
+    var obj = {"order_info":order_info[0]}
     res.render("user/do_payment.ejs",obj)
+});
+
+router.post("/payment_success/:order_id", verify_login, async function(req, res){
+    var order_id = req.params.order_id;
+    var sql = `UPDATE order_info SET payment_status = 'Paid',
+                transaction_id = '${req.body.razorpay_payment_id}' WHERE 
+                order_id = '${order_id}' `;
+    var data = await exe(sql);
+   // res.send(data);
+   res.redirect("/my_orders");
+
+});
+
+router.get("/print_invoice/:order_id", verify_login, async function (req, res){
+    var order_id = req.params.order_id;
+    var sql = `SELECT * FROM order_info WHERE order_id = '${order_id}'`;
+    var order_info = await exe(sql);
+
+    var sql2 = `SELECT * FROM products, order_products WHERE products.product_id = order_products.product_id 
+                        AND order_id = '${order_id}'`;   
+    var products = await exe(sql2);
+    var obj = { "order_info":order_info[0], "products":products, "is_login":is_login(req)}
+    res.render("user/print_invoice.ejs", obj);
+})
+
+router.get("/my_orders", verify_login, async function(req, res){
+    var sql = `SELECT * FROM order_info WHERE user_id = '${req.session.user_id}' `;
+    var data = await exe(sql);
+    var obj = {"orders":data,"is_login":is_login(req)}
+    res.render("user/my_orders.ejs", obj);
 });
 
 router.post("/confirm_order", async function(req, res){

@@ -1,0 +1,205 @@
+<%-include("navbar.ejs")%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - Online Clothing Shop</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .invoice-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-top: 8px solid #ff6b81;
+            border-bottom: 8px solid #ff6b81;   
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between; 
+            margin-bottom: 30px;
+        }
+
+        .invoice-header h1 {
+            margin: 0;
+            color: #ff6b81;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .invoice-header .company-details p {
+            margin: 0;
+            color: #555;
+        }
+
+        .invoice-header .company-details {
+            text-align: right;
+        }
+
+        .customer-info,
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+
+        .customer-info h3,
+        .invoice-details h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+            color: #ff6b81;
+        }
+
+        .customer-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .invoice-details table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .invoice-details table th,
+        .invoice-details table td {
+            padding: 12px;
+            border: 1px solid #eee;
+            text-align: left;
+        }
+
+        .invoice-details table th {
+            background-color: #ff6b81;
+            color: white;
+        }
+
+        .invoice-details table td {
+            background-color: #fdfdfd;
+        }
+
+        .invoice-details table td:nth-child(2), 
+        .invoice-details table td:nth-child(4) {
+            text-align: center;
+        }
+
+        .invoice-total {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .invoice-total h3 {
+            color: #ff6b81;
+            font-size: 24px;
+        }
+
+        .invoice-total h3 span {
+            color: #333;
+            font-weight: normal;
+        }
+
+        .payment-info {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .payment-info p {
+            margin: 3px 0;
+        }
+
+        .btn-print {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #ff6b81;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-print:hover {
+            background-color: #ff4757;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="invoice-container" style="margin-top: 70px;">
+    <div class="invoice-header">
+        <div class="shop-name">
+            <h1>Musical Instrument and Accessories</h1>
+            <h6 class="mt-2">Shrigonda Station, Shrigonda, Ahmednagar- 413701</h6>
+            <h6>Email: musiclashop@gmail.com</h6>
+        </div>
+        <div class="company-details">
+            <h5>Payemnt Details</h5>
+            <p><strong>Invoice #:</strong> <%-order_info.order_id%></p>
+            <p><strong>Payment Mode :</strong> <%-order_info.payment_mode%></p>
+            <p><strong>Payment Status :</strong> <%-order_info.payment_status%></p>
+            <p><strong>Transaction Id  :</strong> <%-order_info.transaction_id%></p>
+            <p><strong>Date:</strong> <%-order_info.order_date%></p>
+        </div>
+    </div>
+
+    <div class="customer-info">
+        <h3>Billing To:</h3>
+        <p><strong>Name:</strong> <%-order_info.full_name%></p>
+        <p><strong>Address:</strong> <%-order_info.street_landmark%>, <%-order_info.city%>, <br><%-order_info.district%>, <%-order_info.state%>, <%-order_info.country%>-<%-order_info.pin_code%></p>
+        <p><strong>Mobile:</strong> <%-order_info.mobile%></p>
+    </div>
+
+    <div class="invoice-details">
+        <h3>Order Details</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.map((row, i)=>{ %>
+                    <tr>
+                        <td><%-i+1%></td>
+                        <td><%-row.product_name%></td>
+                        <td> &#8377; <%-row.price%></td>
+                        <td><%-row.quantity%></td>
+                        <td> &#8377; <%-row.total%> </td>
+                    </tr>
+                <% }) %>        
+                
+            </tbody>
+        </table>
+    </div>
+
+    <div class="invoice-total">
+        <h3>Total Amount: <span><%-order_info.total%></span></h3>
+    </div>  
+
+    <div class="payment-info">
+        <p>🙏Thank you for shopping with us!🙏</p>
+        <p>If you have any questions, plese contact our support team</p>
+
+    </div>
+
+    <a href="javascript:window.print()" class="btn-print">Print Invoice</a>
+</div>
+
+</body>
+</html>
+<%-include("footer.ejs")%>

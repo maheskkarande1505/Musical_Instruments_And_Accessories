@@ -1,0 +1,44 @@
+<%-include("navbar.ejs")%>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Order History</h1>
+
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Payment Status</th>
+          <th scope="col">Order Amount</th>
+          <th scope="col">Order Status</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.map((row,i)=>{ %>
+            <tr>
+                
+                <td><%-row.order_id%></td>
+                <td><%-row.order_date%></td>
+                <td>
+                      <% if (row.payment_status === 'Paid') { %>
+                        <span class="badge bg-success"><%= row.payment_status %></span>
+                      <% } else if (row.payment_status === 'Pending') { %>
+                        <span class="badge bg-danger"><%= row.payment_status %></span>
+                      <% } else { %>
+                        <span class="badge bg-warning"><%= row.payment_status %></span>
+                      <% } %>   
+                </td>
+                <td>₹<%-row.total%></td>
+                <td><span class="badge bg-primary"><%-row.order_status%></span></td>
+                <td><a href="/print_invoice/<%-row.order_id%>"><button class="btn btn-sm btn-primary">Print Invoice</button></a></td>
+              </tr>
+        <% }) %>
+        
+      </tbody>
+    </table>
+  </div>
+
+  
+
+<%-include("footer.ejs")%>
