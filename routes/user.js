@@ -85,8 +85,10 @@ router.get("/brand",function(req,res){
     res.render("user/Brand.ejs",obj);
 });
 
-router.get("/gallery",function(req,res){
-    var obj = {"is_login":is_login(req)};
+router.get("/gallery", async function(req,res){
+    var sql = `SELECT * FROM gallery`;
+    var data = await exe(sql);
+    var obj = {"is_login":is_login(req),"gallery_data":data}
     res.render("user/Gallery.ejs",obj);
 });
 

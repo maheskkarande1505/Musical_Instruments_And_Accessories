@@ -293,4 +293,78 @@ router.post("/update_product", async function(req, res){
    // res.send(data);
    res.redirect("/admin/product_list")
 });
+
+
+
+// Gallery Page
+router.get("/add_photo", async function(req, res){
+    var sql = `SELECT * FROM gallery`;
+    var data = await exe(sql);
+    var obj = {"gallery":data}
+    res.render("admin/Gallery.ejs", obj)
+});
+
+router.post("/save_photo",async function(req, res){
+
+    var photo = "";
+
+    if(req.files)
+    {
+        if(req.files.photo)
+        {
+            photo = new Date().getTime()+req.files.photo.name;
+            req.files.photo.mv("public/uploads/"+photo);
+        }
+
+    }
+
+    var d = req.body;
+    var sql = `INSERT INTO gallery(photo_title,photo) VALUES (?,?)`;
+    var data = await exe(sql, [d.photo_title,photo]);
+    //res.send(data);
+    res.redirect("/admin/add_photo");
+
+});
+
+router.get("/edit_photo/:id", async function(req, res){
+    var id = req.params.id;
+    var sql = `SELECT * FROM gallery WHERE gallery_id = '${id}' `;
+    var data = await exe(sql);
+    var obj = {"gallery_info":data[0]}
+    res.render("admin/GalleryEdit.ejs", obj);
+});
+
+router.post("/update_photo", async function(req, res){
+    var id = req.params.id;
+    var photo = "";
+    var d = req.body;
+
+    if(req.files)
+    {
+        if(req.files.photo)
+        {
+            var photo = new Date().getTime()+req.files.photo.name;
+            req.files.photo.mv("public/uploads/"+photo);
+            var sqlImage = `UPDATE gallery SET photo ='${photo}'
+                                            WHERE gallery_id = '${d.gallery_id}' `;
+            var dataImage = await exe(sqlImage);
+
+        }
+    }
+
+    var sql = `UPDATE gallery SET
+                    photo_title = '${d.photo_title}'
+                WHERE gallery_id = '${d.gallery_id}'`;
+    var data = await exe(sql);
+   // res.send(data);
+   res.redirect("/admin/add_photo");
+});
+
+router.get("/delete_photo/:id", async function(req, res){
+    var id = req.params.id;
+    var sql = `DELETE FROM gallery WHERE gallery_id = '${id}'`;
+    var data = await exe(sql);
+   // res.send(data);
+   res.redirect("/admin/add_photo");
+});
 module.exports = router;

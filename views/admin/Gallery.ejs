@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+</head>
+<body>
+    <main>
+        <%-include("Navbar.ejs")%>
+        
+
+        <div class="container">
+           <form action="/admin/save_photo" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Add Photo</h1>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label>Select Photo</label>
+                        <input type="file" class="form-control" required name="photo"/>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label>Photo Title</label>
+                        <input type="text" class="form-control" required name="photo_title"/>
+                    </div>
+
+                    <div class="col-md-12 mt-3 text-center">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+           </form>
+        </div>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Photo List</h1>
+                </div>  
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Photo Title</th>
+                            <th>Photo</th>
+                            <th>Action</th>
+                        </tr>
+
+                        <% gallery.map((row, i)=>{ %>
+                            <tr>
+                                <td><%-i+1%></td>
+                                <td><%-row.photo_title%></td>
+                                <td><img src="/uploads/<%-row.photo%>" width="100px"/></td>
+                                <td style="white-space: nowrap;">
+                                    <a href="/admin/edit_photo/<%- row.gallery_id %>">
+                                        <button class="btn btn-sm btn-success"> <i class="fa fa-pencil"></i> </button>
+                                    </a>
+                                    <a href="/admin/delete_photo/<%- row.gallery_id %>" onclick="return confirm('Are You Sure....?')">
+                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button>
+                                    </a>
+                                </td>  
+                            </tr>
+                        <% }) %>
+                       
+
+                    </table>
+                </div>   
+
+            </div>
+         </div>
+
+
+        <%-include("Footer.ejs")%>
+     </main>
+</body>
+</html>

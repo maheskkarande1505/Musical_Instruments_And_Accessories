@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Edit Gallery</title>
+</head>
+<body>
+    <main>
+        <%-include("Navbar.ejs")%>
+        
+
+        <div class="container">
+           <form action="/admin/update_photo" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Edit Photo</h1>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <input type="hidden" class="form-control" name="gallery_id" value="<%-gallery_info.gallery_id%>"/>
+                        <label>Photo Title</label>
+                        <input type="text" class="form-control" required name="photo_title" value="<%-gallery_info.photo_title%>"/>
+                    </div>
+
+                    <div class="col-md-4 mt-3">
+                        <label>Select Photo</label> 
+                        <input type="file" class="form-control" name="photo"/>
+                    </div>
+
+                    <div class="col-md-2 mt-3">
+                        <img src="/uploads/<%-gallery_info.photo%>" width="100px"/>
+                    </div>
+                    
+                    <div class="col-md-12 mt-3 text-center">
+                        <button class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+           </form>
+        </div>
+
+        
+
+
+        <%-include("Footer.ejs")%>
+     </main>
+</body>
+</html>
