@@ -64,7 +64,9 @@ router.post("/proceed_login", async function(req, res){
 router.get("/",async function(req,res){
     var sql = 'SELECT * FROM slider';
     var slider_info = await exe(sql);
-    var obj = {"is_login":is_login(req), "slider_info":slider_info};
+    var productsql = `SELECT * FROM products ORDER BY product_id DESC LIMIT 5`;
+    var productData = await exe(productsql);
+    var obj = {"is_login":is_login(req), "slider_info":slider_info,"product_info":productData};
     res.render("user/Home.ejs", obj);
 });
 
@@ -263,7 +265,7 @@ router.post("/save_in_cart", verify_login, async function(req, res){
     var sql = `INSERT INTO cart (user_id, product_id, quantity) VALUES (?,?,?)`;
     var data = await exe(sql,[user_id, d.product_id, d.quantity]);
     //res.send(data); 
-    res.send("<script> location.href = document.referrer </script>");
+    res.redirect("/cart");
 });
 
 
