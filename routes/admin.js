@@ -294,7 +294,75 @@ router.post("/update_product", async function(req, res){
    res.redirect("/admin/product_list")
 });
 
+// Brand Page
+router.get("/brand", async function(req, res){
+    var sql = `SELECT * FROM brands`
+    var data = await exe(sql);
+    var obj = {"brand_info":data}
+    res.render("admin/Brand.ejs",obj)
+});
 
+router.post("/add_brand",async function(req, res){
+    var brand_image = "";
+
+    if(req.files)
+    {
+        if(req.files.brand_image)
+        {
+            brand_image = new Date().getTime()+req.files.brand_image.name;
+            req.files.brand_image.mv("public/uploads/"+brand_image);
+        }
+
+    }
+
+    var d = req.body;
+    var sql = `INSERT INTO brands(brand_name,brand_image) VALUES (?,?)`;
+    var data = await exe(sql, [d.brand_name,brand_image]);
+    //res.send(data);
+    res.redirect("/admin/brand");
+})
+
+router.get("/edit_brand/:id", async function(req, res){
+    var id = req.params.id;
+    var sql = `SELECT * FROM brands WHERE brand_id = '${id}' `;
+    var data = await exe(sql);
+    var obj = {"brand_info":data[0]}
+    res.render("admin/Brand_Edit.ejs", obj);
+});
+
+router.post("/update_brand/", async function(req, res){
+    var id = req.params.id;
+    var brand_image = "";
+    var d = req.body;
+
+    if(req.files)
+    {
+        if(req.files.brand_image)
+        {
+            var brand_image = new Date().getTime()+req.files.brand_image.name;
+            req.files.brand_image.mv("public/uploads/"+brand_image);
+            var sqlImage = `UPDATE brands SET brand_image ='${brand_image}'
+                                            WHERE brand_id = '${d.brand_id}' `;
+            var dataImage = await exe(sqlImage);
+
+        }
+    }
+
+    var sql = `UPDATE brands SET
+                    brand_name = '${d.brand_name}'
+                WHERE brand_id = '${d.brand_id}'`;
+    var data = await exe(sql);
+   // res.send(data);
+   res.redirect("/admin/brand")
+});
+
+router.get("/delete_brand/:id", async function(req, res){
+    var id = req.params.id;
+    var sql = `DELETE FROM brands WHERE brand_id = '${id}'`;
+    var data = await exe(sql);
+   // res.send(data);
+   res.redirect("/admin/brand")
+})
 
 // Gallery Page
 router.get("/add_photo", async function(req, res){
@@ -367,4 +435,6 @@ router.get("/delete_photo/:id", async function(req, res){
    // res.send(data);
    res.redirect("/admin/add_photo");
 });
+
+
 module.exports = router;

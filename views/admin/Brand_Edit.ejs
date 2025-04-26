@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand</title>
+</head>
+<body>
+     <main>
+        <%-include("Navbar.ejs")%>
+        
+
+        <div class="container">
+            <form action="/admin/update_brand" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Edit Brand Form</h2>
+                        <input type="hidden" class="form-control" name="brand_id" value="<%-brand_info.brand_id%>"/>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label>Brand Name</label>
+                        <input type="text" class="form-control" name="brand_name" value="<%-brand_info.brand_name%>"/>
+                    </div>
+                    <div class="col-md-5 mt-3">
+                        <label>Select Brand Image</label>
+                        <input type="file" class="form-control" name="brand_image"/>
+                    </div>
+                    <div class="col-md-1 mt-3">
+                        <img src="/uploads/<%-brand_info.brand_image%>" width="70px" height="70px"/>
+                    </div>
+
+                    <div class="col-md-12 mt-3 text-center">
+                        <button class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        
+
+
+        <%-include("Footer.ejs")%>
+     </main>
+</body>
+</html>
