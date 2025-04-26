@@ -136,6 +136,15 @@ router.get("/contact",function(req,res){
     res.render("user/Contact.ejs",obj);
 });
 
+router.post("/save_contact", async function(req, res){
+    var d = req.body;
+    var sql = `INSERT INTO contact (name,email,mobile,message)VALUES(?,?,?,?)`;
+    var data = await exe(sql, [d.name,d.email,d.mobile,d.message]);
+   // res.send(data);
+   res.redirect("/contact");
+
+})
+
 router.get("/product_details/:id", async function(req, res){
     var id = req.params.id;
     var sql = `SELECT * FROM products WHERE product_id = '${id}'`;
