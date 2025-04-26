@@ -66,7 +66,11 @@ router.get("/",async function(req,res){
     var slider_info = await exe(sql);
     var productsql = `SELECT * FROM products ORDER BY product_id DESC LIMIT 5`;
     var productData = await exe(productsql);
-    var obj = {"is_login":is_login(req), "slider_info":slider_info,"product_info":productData};
+
+    var Brandsql = `SELECT * FROM brands`
+    var Branddata = await exe(Brandsql);
+
+    var obj = {"is_login":is_login(req), "slider_info":slider_info,"product_info":productData,"brand_info":Branddata};
     res.render("user/Home.ejs", obj);
 });
 

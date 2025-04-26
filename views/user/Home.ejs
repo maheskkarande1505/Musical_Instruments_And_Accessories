@@ -220,22 +220,12 @@
                 <button class="arrow-btn prev-btn" onclick="scrollLeft()">❮</button>
     
                 <div class="scroll-container" id="scroll-container">
-                    <div class="testimonial-card">
-                        <img src="https://image1.jdomni.in/banner/12092023/77/EB/DC/84991223EF36E42FDE67B44FB9_1694520326638.png?output-format=webp" alt="User">
-                    </div>
-    
-                
-                    <div class="testimonial-card">
-                        <img src="https://image3.jdomni.in/banner/12092023/9A/23/3C/1C7BEC8669C4FE5C58C34777F4_1694520239452.png?output-format=webp" alt="User">
-                    </div>
-    
-                    <div class="testimonial-card">
-                        <img src="https://image2.jdomni.in/banner/12092023/7B/F9/D1/B9FF876C5063311A1F6624FE9B_1694520453322.png?output-format=webp" alt="User">
-                    </div>
-    
-                    <div class="testimonial-card">
-                        <img src="https://image2.jdomni.in/banner/12092023/11/42/41/F032AEE01DE5497999FBE8A82E_1694520767229.png?output-format=webp" alt="User">
-                    </div>
+
+                    <% brand_info.map((row, i)=>{ %>
+                        <div class="testimonial-card">
+                            <img src="/uploads/<%-row.brand_image%>" alt="<%-row.brand_name%>">
+                        </div>
+                    <% }) %>
     
                 </div>
     
