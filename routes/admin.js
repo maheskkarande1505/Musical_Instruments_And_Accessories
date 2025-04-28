@@ -2,8 +2,8 @@ var express = require("express");
 var exe = require("./../connection");
 var router = express.Router();
 
-router.get("/",function(req,res){
-    res.render("admin/Login.ejs");
+router.get("/",async function(req,res){
+    res.render("admin/Login.ejs",);
 });
 
 router.post("/proceed_login", async function(req,res){
@@ -85,9 +85,35 @@ router.get("/admin_logout",function(req, res){
     });
 });
 
-router.get("/dashboard",function(req, res){
-    res.render("admin/Home.ejs")
+router.get("/dashboard", async function(req, res) {
+    try {
+        const page = parseInt(req.query.page) || 1; // Get page from URL query, default 1
+        const limit = 5; // Number of contacts per page
+        const offset = (page - 1) * limit;
+
+        // Fetch limited data
+        var sql = `SELECT * FROM contact LIMIT ${limit} OFFSET ${offset}`;
+        var data = await exe(sql);
+
+        // Fetch total count for pagination
+        var countSql = `SELECT COUNT(*) AS total FROM contact`;
+        var countData = await exe(countSql);
+        var totalRecords = countData[0].total;
+        var totalPages = Math.ceil(totalRecords / limit);
+
+        var obj = {
+            contact_info: data,
+            currentPage: page,
+            totalPages: totalPages
+        };
+
+        res.render("admin/Home.ejs", obj);
+    } catch (err) {
+        console.error(err);
+        res.send("Error loading dashboard");
+    }
 });
+
 
 router.get("/slider",async function(req, res){
     var sql =  `SELECT * FROM slider`;

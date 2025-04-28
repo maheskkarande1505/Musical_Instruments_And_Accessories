@@ -1,3 +1,71 @@
-<%-include("Navbar.ejs")%>
-<h1>Admin Home Page</h1>
-<%-include("Footer.ejs")%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Home</title>
+</head>
+<body>
+     <main class="">
+        <%-include("Navbar.ejs")%>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Customer Contact List</h2>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sr No</th>
+                                <th>Customer Name</th>
+                                <th>Customer Email</th>
+                                <th>Customer Mobile</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% contact_info.map((row, i) => { %>
+                                <tr>
+                                    <td><%= (currentPage - 1) * 5 + i + 1 %></td>
+                                    <td><%= row.name %></td>
+                                    <td><%= row.email %></td>
+                                    <td><%= row.mobile %></td>
+                                    <td><%= row.message %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination Links -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <% if (currentPage > 1) { %>
+            <li class="page-item">
+                <a class="page-link" href="/dashboard?page=<%= currentPage - 1 %>">Previous</a>
+            </li>
+        <% } %>
+
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                <a class="page-link" href="/dashboard?page=<%= i %>"><%= i %></a>
+            </li>
+        <% } %>
+
+        <% if (currentPage < totalPages) { %>
+            <li class="page-item">
+                <a class="page-link" href="/dashboard?page=<%= currentPage + 1 %>">Next</a>
+            </li>
+        <% } %>
+    </ul>
+</nav>
+                </div>
+            </div>
+        </div>
+
+       
+
+        <%-include("Footer.ejs")%>
+     </main>
+</body>
+</html>
