@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Information</title>
+</head>
+<body>
+
+
+     <%-include("Navbar.ejs")%>
+
+    <section>
+        <div class="container">
+            <form action="/admin/update_personal_info" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Update Personal Information</h3>
+                    </div>
+
+                    <div class="col-md-6 mt-2">
+                        <label class="label">Shop Name</label>
+                        <input type="text" class="form-control" name="shop_name" value="<%-personal_data.shop_name%>" required />
+                    </div> 
+
+                    <div class="col-md-4 mt-2">
+                        <label class="label">Select Logo</label>
+                        <input type="file" class="form-control" name="logo"/>
+                    </div> 
+
+                    <div class="col-md-2 mt-2">
+                        <img src="/uploads/<%-personal_data.logo%>" width="100%" height="80px"/>
+                    </div>
+    
+                    <div class="col-md-6 mt-2">
+                        <label class="label">Contact number</label>
+                        <input type="text" class="form-control" name="contact_no" value="<%-personal_data.contact_no%>" required />
+                    </div> 
+    
+                    <div class="col-md-6 mt-2">
+                        <label class="label" >Email</label>
+                        <input type="email" class="form-control" name="email" value="<%-personal_data.email%>" required />
+                    </div> 
+    
+                   
+                    <div class="col-md-6 mt-2">
+                        <label class="label" >Facebook Link</label>
+                        <input type="text" class="form-control" name="facebook_link" value="<%-personal_data.facebook_link%>" required />
+                    </div> 
+    
+                    <div class="col-md-6 mt-2">
+                        <label class="label" >Instgram Link</label>
+                        <input type="text" class="form-control" name="insta_link" value="<%-personal_data.insta_link%>" required />
+                    </div> 
+    
+                    <div class="col-md-6 mt-2">
+                        <label class="label" >Twiter Link</label>
+                        <input type="text" class="form-control" name="twiter_link" value="<%-personal_data.twiter_link%>" required />
+                    </div> 
+    
+                    <div class="col-md-6 mt-2">
+                        <label class="label" >Google link</label>
+                        <input type="text" class="form-control" name="google_link" value="<%-personal_data.google_link%>" required />
+                    </div> 
+    
+                    <div class="col-md-6 mt-2">
+                        <label class="label" >Youtube Link</label>
+                        <input type="text" class="form-control" name="youtube_link" value="<%-personal_data.youtube_link%>" required />
+                    </div> 
+
+                    <div class="col-md-6 mt-2">
+                        <label class="label" >Map Link</label>
+                        <input type="text" class="form-control" name="map_link" value="<%-personal_data.map_link%>" required />
+                    </div> 
+
+                    <div class="col-md-12 mt-2">
+                        <label class="label">Address</label>
+                        <textarea class="form-control" name="address"><%-personal_data.address%></textarea>
+                    </div>
+                    
+                    <div class="col-md-12 mt-3 text-center">
+                        <button class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    
+
+  
+    <%-include("Footer.ejs")%>
+    
+</body>
+</html>

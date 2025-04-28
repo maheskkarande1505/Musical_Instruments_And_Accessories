@@ -157,7 +157,56 @@ router.get("/delete_slider/:id", async function(req, res){
     var data = await exe(sql);
    // res.send(data);
    res.redirect("/admin/slider")
-})
+});
+
+router.get("/update_personal_info", async function (req, res){
+    var sql = `SELECT * FROM update_personal_info`;
+    var data = await exe(sql);
+    var obj = {"personal_data":data[0]}
+    res.render("admin/Personal_info.ejs", obj)
+});
+
+router.post("/update_personal_info", async function(req, res) {
+   
+    var d = req.body;
+    var logo = "";
+    var id = req.params.id;
+    
+
+    if(req.files)
+    {
+        if(req.files.logo)
+        {
+            var logo = new Date().getTime()+req.files.logo.name;
+            req.files.logo.mv("public/uploads/"+logo);
+            var sqlLogo = `UPDATE update_personal_info SET logo = '${logo}'
+                                            WHERE info_id = 1 `;
+            var datalogo = await exe(sqlLogo);
+           // res.send(datalogo);
+
+        }
+    }
+
+    var sql = `UPDATE update_personal_info SET 
+                   shop_name = '${d.shop_name}',
+                   contact_no = '${d.contact_no}',
+                   email = '${d.email}',
+                   address = '${d.address}',
+                   facebook_link = '${d.facebook_link}',
+                   insta_link = '${d.insta_link}',
+                   twiter_link = '${d.twiter_link}',
+                   google_link = '${d.google_link}',
+                   youtube_link = '${d.youtube_link}',
+                   map_link = '${d.map_link}'
+               WHERE info_id = 1`;
+   var data =  await exe(sql);
+
+   
+   // res.redirect("/admin/update_personal_info?success=true");
+   res.redirect("/admin/update_personal_info")
+
+});
+
 
 router.get("/about_us",function(req, res){
     res.render("admin/About.ejs");

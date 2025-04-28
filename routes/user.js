@@ -131,8 +131,10 @@ router.post("/update_cart_qty", verify_login, async function(req, res){
 });
 
 
-router.get("/contact",function(req,res){
-    var obj = {"is_login":is_login(req)};
+router.get("/contact",async function(req,res){
+    var sql = `SELECT * FROM update_personal_info`;
+    var data = await exe(sql);
+    var obj = {"is_login":is_login(req), "personal_data":data[0]};
     res.render("user/Contact.ejs",obj);
 });
 
