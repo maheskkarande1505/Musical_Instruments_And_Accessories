@@ -74,8 +74,10 @@ router.get("/",async function(req,res){
     res.render("user/Home.ejs", obj);
 });
 
-router.get("/about",function(req,res){
-    var obj = {"is_login":is_login(req)};
+router.get("/about", async function(req,res){
+     var sql = `SELECT * FROM about_us`;
+    var data = await exe(sql);
+    var obj = {"is_login":is_login(req),"about_info":data[0]};
     res.render("user/About.ejs",obj);
 });
 
