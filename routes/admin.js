@@ -234,10 +234,70 @@ router.post("/update_personal_info", async function(req, res) {
 });
 
 
-router.get("/about_us",function(req, res){
-    res.render("admin/About.ejs");
+router.get("/about_us", async function(req, res){
+    var sql = `SELECT * FROM about_us`;
+    var data = await exe(sql);
+    var obj = {"about_info":data[0]}
+    res.render("admin/About.ejs", obj);
+
 });
 
+router.post("/update_about", async function (req, res){
+
+    var d = req.body;
+    var about_image = "";
+    var id = req.params.id;
+    
+
+    if(req.files)
+    {
+        if(req.files.about_image)
+        {
+            var about_image = new Date().getTime()+req.files.about_image.name;
+            req.files.about_image.mv("public/uploads/"+about_image);
+            var sqlabout_image = `UPDATE about_us SET about_image = '${about_image}'
+                                            WHERE about_id = 1 `;
+            var dataabout_image = await exe(sqlabout_image);
+           // res.send(dataabout_image);
+
+        }
+
+        if(req.files.mission_image)
+        {
+            var mission_image = new Date().getTime()+req.files.mission_image.name;
+            req.files.mission_image.mv("public/uploads/"+mission_image);
+            var sqlmission_image = `UPDATE about_us SET mission_image = '${mission_image}'
+                                            WHERE about_id = 1 `;
+            var datamission_image = await exe(sqlmission_image);
+           // res.send(datamission_image);
+
+        }
+
+        if(req.files.vission_image)
+        {
+            var vission_image = new Date().getTime()+req.files.vission_image.name;
+            req.files.vission_image.mv("public/uploads/"+vission_image);
+            var sqlvission_image = `UPDATE about_us SET vission_image = '${vission_image}'
+                                            WHERE about_id = 1 `;
+            var datavission_image = await exe(sqlvission_image);
+            // res.send(datavission_image);
+
+        }
+    }
+
+    var sql = `UPDATE about_us SET 
+                   about_us = '${d.about_us}',
+                   mission = '${d.mission}',
+                   vission = '${d.vission}'
+               WHERE about_id = 1`;
+   var data =  await exe(sql);
+
+   
+   // res.redirect("/admin/update_personal_info?success=true");
+   res.redirect("/admin/about_us")
+})
+
+// Product page
 router.get("/products", function(req, res){
     res.render("admin/Products.ejs")
 })
