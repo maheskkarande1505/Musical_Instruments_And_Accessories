@@ -571,5 +571,28 @@ router.get("/delete_photo/:id", async function(req, res){
    res.redirect("/admin/add_photo");
 });
 
+// Order Details
+
+router.get("/pending_orders", async function(req, res){
+    var sql = `SELECT * FROM order_info WHERE order_status = 'Pending'`;
+    var data = await exe(sql);
+    var obj = {"pending_orders":data};
+    res.render("admin/pending_orders.ejs", obj);
+});
+
+router.get("/dispatch_orders", async function(req, res){
+    var sql = `SELECT * FROM order_info WHERE order_status = 'Dispatch'`;
+    var data = await exe(sql);
+    var obj = {"dispatch_orders":data};
+    res.render("admin/dispatch_orders.ejs", obj);
+});  
+
+router.get("/deliverd_orders", async function(req, res){
+    var sql = `SELECT * FROM order_info WHERE order_status = 'Deliver'`;
+    var data = await exe(sql);
+    var obj = {"deliver_orders":data};
+    res.render("admin/deliverd_orders.ejs", obj);
+});
+
 
 module.exports = router;
