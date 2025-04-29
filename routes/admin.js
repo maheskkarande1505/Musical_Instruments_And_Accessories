@@ -594,5 +594,36 @@ router.get("/deliverd_orders", async function(req, res){
     res.render("admin/deliverd_orders.ejs", obj);
 });
 
+router.get("/order_details/:order_id", async function(req, res){
+    var order_id = req.params.order_id;
+    var sql = `SELECT * FROM order_info WHERE order_id = '${order_id}'`;
+    var order_info = await exe(sql);
+
+    var sql2 = `SELECT * FROM products, order_products WHERE products.product_id = order_products.product_id 
+                        AND order_id = '${order_id}'`;   
+    var products = await exe(sql2);
+    var obj = {"order_info":order_info[0], "products":products}
+    res.render("admin/order_details.ejs", obj);
+
+});
+
+router.get("/change_order_status_to_dispatch/:order_id", async function(req, res){
+    var order_id = req.params.order_id;
+
+    var sql = `UPDATE order_info SET order_status = 'Dispatch' WHERE order_id = '${order_id}' `;
+    var data = await exe(sql);
+   // res.send("Dipatching Order "+ order_id)
+    res.redirect("/admin/pending_orders");
+});
+
+router.get("/change_order_status_to_deliver/:order_id", async function(req, res){
+    var order_id = req.params.order_id;
+
+    var sql = `UPDATE order_info SET order_status = 'Deliver', payment_status = 'Paid' WHERE order_id = '${order_id}' `;
+    var data = await exe(sql);
+   // res.send("Dipatching Order "+ order_id)
+    res.redirect("/admin/dispatch_orders");
+});
+
 
 module.exports = router;
